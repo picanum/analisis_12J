@@ -78,6 +78,9 @@ bildu <- str_replace_all(bildu, "\r\n", " ")
 bildu <- str_remove_all(bildu, "\a")
 bildu <- str_remove_all(bildu, "-       ")
 bildu <- str_remove_all(bildu, "   ")
+bildu <- str_remove_all(bildu, "PROGRAMA")
+bildu <- str_remove_all(bildu, "ELECTORAL 2020")
+bildu <- str_remove_all(bildu, "ARABA, BIZKAIA Y GIPUZKOA")
 
 pod <- pdf_text("podemos.pdf")
 pod <- str_remove_all(pod, "PROGRAMA AUTONÓMICO 2020")
@@ -237,7 +240,7 @@ fviz_pca_var(res.pca, col.var="contrib",
 ) + labs(
   title = "Análisis de componentes principales sobre los programas electorales,\nsegún frecuencia relativa de palabras utilizadas",
   caption = "Fuente: programas electorales de PSE-EE, PNV, EH Bildu, Elkarrekin Podemos-IU y PP+Cs | @Picanumeros",
-  x = "Componente 1 (75.3% de varianza explicada)", y = "Componente 2 (8.9% de varianza explicada)"
+  x = "Componente 1 (76.3% de varianza explicada)", y = "Componente 2 (8.5% de varianza explicada)"
 )
 ggsave("comp1_sinpart.png", dpi = 300, width = 8.4, height = 6.4)
 
@@ -255,8 +258,8 @@ mds <- dist(t(d_comp[,2:6]))
 fit <- cmdscale(mds,eig=TRUE, k=2)
 puntos <- as.data.frame(fit$points)
 ggplot(puntos, aes(x = V1, y = V2, label = row.names(fit$points))) + geom_point() + geom_label() +
-  theme_classic(base_size = 15) + labs(x = "Dimensión 1 (40.3% suma autovalores)",
-                                       y = "Dimensión 2 (23.6% suma autovalores)",
+  theme_classic(base_size = 15) + labs(x = "Dimensión 1 (41.4% suma autovalores)",
+                                       y = "Dimensión 2 (23.5% suma autovalores)",
                                        title = "Representación bidimensional de los programas de cada partido mediante\nescalamiento multidimensional (MDS) según las distancias entre ellos",
                                        subtitle = "Distancias obtenidas a partir de la distancia euclídea entre frecuencias relativas de palabras",
                                        caption = "Fuente: programas electorales de PSE-EE, PNV, EH Bildu, Elkarrekin Podemos-IU y PP+Cs | @Picanumeros") +
